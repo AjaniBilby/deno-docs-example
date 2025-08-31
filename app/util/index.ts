@@ -1,31 +1,3 @@
-import * as environment from "./environment.ts";
-
-/**
- * @deprecated - use "/util/environment"
- */
-export const isDevelopment = environment.isDevelopment;
-
-/**
- * @deprecated - use "/util/environment"
- */
-export const isProduction  = environment.isProduction;
-
-/**
- * @deprecated - use "/util/environment"
- */
-export const isSandbox     = !environment.isDevelopment && !environment.isProduction;
-
-/**
- * @deprecated - use "/util/environment"
- */
-export const site_theme = environment.site_theme;
-
-/**
- * @deprecated - use "/util/environment"
- */
-export const site_name  = environment.site_name;
-
-
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function AssertUnreachable(x: never): never {
 	throw new Error("Unreachable code path reachable");

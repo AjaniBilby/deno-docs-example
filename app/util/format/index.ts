@@ -72,21 +72,6 @@ export function SSCCCheckDigit(sscc: string) {
 }
 
 
-import * as Time from '../time.ts';
-/**
- * @deprecated - use import { TIME_ZONE } from "~/util/time.ts";
- */
-export const TIME_ZONE = Time.TIME_ZONE;
-/**
- * @deprecated - use import { TIME_SCALE } from "~/util/time.ts";
- */
-export const TIME_SCALE = Time.TIME_SCALE;
-/**
- * @deprecated - use import { ParseInterval } from "~/util/time.ts";
- */
-export const ParseInterval = Time.ParseInterval;
-
-
 export function IsValidRegex(pattern: string): boolean {
 	try{
 		new RegExp(pattern);
