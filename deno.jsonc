@@ -1,0 +1,85 @@
+{
+	"tasks": {
+		"prepare":        "deno task 'prepare:*'",
+		"prepare:htmx":   "deno run -A npm:htmx-router",
+		"prepare:prisma": "deno run -A npm:prisma generate",
+
+		"start": "deno serve -A --env-file --port 3000 server.production.ts",
+		"dev":   "deno serve -A --env-file --port 3000 server.dev.ts",
+
+		"doc": "deno task 'doc:*'",
+		"doc:index": "deno run -A ./tool/auto-barrel-shotgun.ts",
+		"doc:render": "deno doc --allow-import --html --output=./js-docs ./app/mod.ts",
+		"doc:serve":  "deno run --allow-net --allow-read jsr:@std/http/file-server js-docs",
+
+		"prisma":                "deno run -A npm:prisma",
+		"prisma:generate":       "deno task prisma generate --sql",
+		"prisma:migrate:dev":    "deno task prisma generate migrate dev",
+		"prisma:migrate:deploy": "deno task prisma generate migrate deploy",
+
+		"build":        "deno task 'build:*'",
+		"build:client": "deno run -A npm:vite build",
+		"build:server": "deno run -A npm:vite build --ssr app/entry.server.ts --outDir dist/server",
+
+		"validate":       "deno task 'validate:*'",
+		"validate:check": "deno check --doc --quiet",
+		"validate:lint":  "deno lint",
+		"validate:test":  "deno test",
+
+		"compile": "deno compile -A production.ts --include build/* --include public/*"
+	},
+	"compilerOptions": {
+		"jsx": "react-jsx",
+		"lib": ["deno.ns", "DOM", "DOM.Iterable", "ESNext"],
+		"types": ["react", "react-dom", "@types/react", "vite/client", "./global.d.ts"],
+		"strict": true,
+		"strictNullChecks": true
+	},
+	"lint": {
+		"include": ["app/"],
+		"rules": {
+			"tags": ["recommended"],
+			// "include": ["ban-untagged-todo"],
+			"exclude": [
+				"no-explicit-any",
+				"ban-ts-comment",
+				"ban-types",
+
+				"jsx-no-useless-fragment",
+				"jsx-button-has-type",
+				"no-window-prefix",
+				"no-unused-vars",
+				"no-window",
+				"jsx-key"
+			]
+		}
+	},
+	"fmt": {
+		"useTabs": true,
+		"singleQuote": true,
+		"proseWrap": "never",
+		"lineWidth": 250,
+		"include": ["app/"],
+		"exclude": []
+	},
+	"test": {
+		"include": ["tests/**", "**/*.test.ts"]
+	},
+	"include": ["types.d.ts", "app/*"],
+	"exclude": [ "./build/*", "./dist/*" ],
+
+	"nodeModulesDir": "manual",
+	"lock": false,
+	"imports": {
+		"~/": "./app/",
+
+		"@std/encoding": "jsr:@std/encoding@^1.0.10",
+		"@std/fmt": "jsr:@std/fmt@^1.0.8",
+		"@std/http": "jsr:@std/http@^1.0.20",
+		"@std/io":   "jsr:@std/io",
+		"@std/path": "jsr:@std/path@^1.0.3",
+		"@std/assert": "jsr:@std/assert@1",
+
+		"ignore": "npm:ignore@^7.0.5"
+	}
+}
